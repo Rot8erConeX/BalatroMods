@@ -56,5 +56,5 @@ Other values:
 - **`EEEmult`** - increases the amount of EEEmult given by this joker by 0.5 (requires Talisman to be installed).
 
 All of the chip and mult-based buffs can be given the following modifiers:
-- **`_ per card` ("chips per card")** - the buff per card is 25% of the default buff per full hands.
+- **`_ per card` ("chips per card")** - the buff per card is 25% of the default buff per full hands (chip-based buffs round to whole numbers, mult-based buffs can be decimals).
 - **`_ reset` ("mult reset")** - this is for jokers that reset on a timer (the only vanilla joker like this is Campfire).  The buff is 5x the default buff.
