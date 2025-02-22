@@ -21,5 +21,10 @@ Lily Enstomach can buff jokers.  However, each joker is buffed differently based
       extra = true
     }
 ```
-this can be included at the highest level, within the `config` variable, or even within the `config.extra` variable.  If multiple are included, the highest level will be read.
+this can be included at the highest level, within the `config` table, or even within the `config.extra` table.  If multiple are included, the highest level will be read.
 
+- `type` is the type of buff achieved (see below)
+- `var` (and `var2` if applicable) is the name of the variable that will be affected.
+- `extra` is whether or not the variable in question is within the `config.extra` table.  If false, Lily will look in the base `config` table.
+
+# types of buffs
