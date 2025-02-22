@@ -20,3 +20,5 @@ The last joker, the Collector's Dollhouse, synergizes with the ladies' size, all
 
 # Rot8er's Recipes
 A few fusions that I am surprised do not already exist.
+
+If you have [FusionJokers](https://discord.com/channels/1116389027176787968/1227317656131211284) installed but do *not* have [DeFused](https://discord.com/channels/1116389027176787968/1271500476457812120) installed, these jokers will be given the Fusion rarity.  Otherwise, they will be added to the normal pool, at one rarity higher than the rarer of the two jokers required for the fusion.
