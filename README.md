@@ -12,7 +12,11 @@ When you have this joker, Pairs and -of-a-Kind hands will display as "Run of #" 
 ~~You cannot get a Full House with runs~~
 
 # Pockettes
-A set of ten jokers, nine of which are based on canonically-tiny female characters.  The last joker synergizes with their size, allowing them to not take up any joker slots.
+A series of ten jokers, nine of which are based on canonically-tiny female characters, with mechanics based on those characters' personalities or stories.
+
+The last joker, the Collector's Dollhouse, synergizes with the ladies' size, allowing any of the other jokers next to the dollhouse to not take up any joker slots.
+
+~~Future documentation coming for other mod devs to allow their jokers to be properly buffed by Lily Enstomach~~
 
 # Rot8er's Recipes
 A few fusions that I am surprised do not already exist.
