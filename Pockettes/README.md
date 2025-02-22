@@ -58,3 +58,61 @@ Other values:
 All of the chip and mult-based buffs can be given the following modifiers:
 - **`_ per card` ("chips per card")** - the buff per card is 25% of the default buff per full hands (chip-based buffs round to whole numbers, mult-based buffs can be decimals).
 - **`_ reset` ("mult reset")** - this is for jokers that reset on a timer (the only vanilla joker like this is Campfire).  The buff is 5x the default buff.
+
+
+If your joker does not have `enstomach_compat` defined, she will search for variables in the following order, and try to buff them accordingly:
+- **`h_size`** - treated as a hand-size buff
+- **`hands`** - treated as a hand count buff
+- **`d_size`** - treated as a discard buff
+- **`eee_mult`**
+- **`EEEmult`**
+- **`eee_mult_mod`**
+- **`EEEmult_mod`**
+- **`ee_mult`**
+- **`EEmult`**
+- **`ee_mult_mod`**
+- **`EEmult_mod`**
+- **`e_mult`**
+- **`Emult`**
+- **`e_mult_mod`**
+- **`Emult_mod`**
+- **`x_mult`**
+- **`Xmult`**
+- **`x_mult_mod`**
+- **`Xmult_mod`**
+- **`mult`**
+- **`t_mult`**
+- **`s_mult`** - treated as a mult-per-card buff
+- **`mult_mod`**
+- **`eee_chips`**
+- **`EEEchips`**
+- **`eee_chips_mod`**
+- **`EEEchips_mod`**
+- **`eee_chip_mod`**
+- **`EEEchip_mod`**
+- **`ee_chips`**
+- **`EEchips`**
+- **`ee_chips_mod`**
+- **`EEchips_mod`**
+- **`ee_chip_mod`**
+- **`EEchip_mod`**
+- **`e_chips`**
+- **`Echips`**
+- **`e_chips_mod`**
+- **`Echips_mod`**
+- **`e_chip_mod`**
+- **`Echip_mod`**
+- **`x_chips`**
+- **`Xchips`**
+- **`x_chips_mod`**
+- **`Xchips_mod`**
+- **`x_chip_mod`**
+- **`Xchip_mod`**
+- **`chips`**
+- **`t_chips`**
+- **`s_chips`** - treated as a chips-per-card buff
+- **`chips_mod`**
+- **`chip_mod`**
+- **`dollars`** - treated as a double buff
+- **`extra` (not a table)** - treated as an increment buff.
+If `config.extra` is a table, she looks in there.  Otherwise, she looks in `config`.
