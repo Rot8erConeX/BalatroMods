@@ -1329,6 +1329,18 @@ function SMODS.INIT.Pockettes()
                                     var = "EEEchips",
                                     extra = true
                                   }
+                                elseif f.ability.extra.EEEchips_mod ~= nil and f.ability.extra.EEEchips_mod > 0 then
+                                  z = {
+                                    type = "EEEchips",
+                                    var = "EEEchips_mod",
+                                    extra = true
+                                  }
+                                elseif f.ability.extra.eee_chips_mod ~= nil and f.ability.extra.eee_chips_mod > 0 then
+                                  z = {
+                                    type = "EEEchips",
+                                    var = "eee_chips_mod",
+                                    extra = true
+                                  }
                                 elseif f.ability.extra.EEEchip_mod ~= nil and f.ability.extra.EEEchip_mod > 0 then
                                   z = {
                                     type = "EEEchips",
@@ -1351,6 +1363,18 @@ function SMODS.INIT.Pockettes()
                                   z = {
                                     type = "EEchips",
                                     var = "EEchips",
+                                    extra = true
+                                  }
+                                elseif f.ability.extra.EEchips_mod ~= nil and f.ability.extra.EEchips_mod > 0 then
+                                  z = {
+                                    type = "EEchips",
+                                    var = "EEchips_mod",
+                                    extra = true
+                                  }
+                                elseif f.ability.extra.ee_chips_mod ~= nil and f.ability.extra.ee_chips_mod > 0 then
+                                  z = {
+                                    type = "EEchips",
+                                    var = "ee_chips_mod",
                                     extra = true
                                   }
                                 elseif f.ability.extra.EEchip_mod ~= nil and f.ability.extra.EEchip_mod > 0 then
@@ -1377,6 +1401,18 @@ function SMODS.INIT.Pockettes()
                                     var = "Echips",
                                     extra = true
                                   }
+                                elseif f.ability.extra.Echips_mod ~= nil and f.ability.extra.Echips_mod > 0 then
+                                  z = {
+                                    type = "Echips",
+                                    var = "Echips_mod",
+                                    extra = true
+                                  }
+                                elseif f.ability.extra.e_chips_mod ~= nil and f.ability.extra.e_chips_mod > 0 then
+                                  z = {
+                                    type = "Echips",
+                                    var = "e_chips_mod",
+                                    extra = true
+                                  }
                                 elseif f.ability.extra.Echip_mod ~= nil and f.ability.extra.Echip_mod > 0 then
                                   z = {
                                     type = "Echips",
@@ -1401,6 +1437,18 @@ function SMODS.INIT.Pockettes()
                                     var = "Xchips",
                                     extra = true
                                   }
+                                elseif f.ability.extra.Xchips_mod ~= nil and f.ability.extra.Xchips_mod > 0 then
+                                  z = {
+                                    type = "Xchips",
+                                    var = "Xchips_mod",
+                                    extra = true
+                                  }
+                                elseif f.ability.extra.x_chips_mod ~= nil and f.ability.extra.x_chips_mod > 0 then
+                                  z = {
+                                    type = "Xchips",
+                                    var = "x_chips_mod",
+                                    extra = true
+                                  }
                                 elseif f.ability.extra.Xchip_mod ~= nil and f.ability.extra.Xchip_mod > 0 then
                                   z = {
                                     type = "Xchips",
@@ -1417,6 +1465,12 @@ function SMODS.INIT.Pockettes()
                                   z = {
                                     type = "chips",
                                     var = "chips",
+                                    extra = true
+                                  }
+                                elseif f.ability.extra.chips_mod ~= nil and f.ability.extra.chips_mod > 0 then
+                                  z = {
+                                    type = "chips",
+                                    var = "chips_mod",
                                     extra = true
                                   }
                                 elseif f.ability.extra.chip_mod ~= nil and f.ability.extra.chip_mod > 0 then
@@ -1981,11 +2035,17 @@ function SMODS.INIT.Pockettes()
                               elseif z.type and z.type == "decrease" then
                                 if z.extra then
                                   if f.ability.extra[z.var] > 1 then
-                                    f.ability.extra[z.var] = f.ability.extra[z.var] - 1
+                                    f.ability.extra[z.var] = f.ability.extra[z.var] - zbuff
+									if f.ability.extra[z.var] < 1 then
+                                      f.ability.extra[z.var] = 1
+									end
                                   end
                                 else
                                   if f.ability[z.var] > 1 then
-                                    f.ability[z.var] = f.ability[z.var] - 1
+                                    f.ability[z.var] = f.ability[z.var] - zbuff
+									if f.ability[z.var] < 1 then
+                                      f.ability[z.var] = 1
+									end
                                   end
                                 end
                               elseif z.type and z.type == "counter" then
@@ -1993,12 +2053,6 @@ function SMODS.INIT.Pockettes()
                                   f.ability.extra[z.var] = f.ability.extra[z.var] + 10 * zbuff
                                 else
                                   f.ability[z.var] = f.ability[z.var] + 10 * zbuff
-                                end
-                              elseif z.type and z.type == "double" then
-                                if z.extra then
-                                  f.ability.extra[z.var] = f.ability.extra[z.var] * 2 * zbuff
-                                else
-                                  f.ability[z.var] = f.ability[z.var] * 2 * zbuff
                                 end
                               elseif z.type and z.type == "base as upgrade - half double" then
                                 if z.extra then
