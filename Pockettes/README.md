@@ -11,6 +11,7 @@
 - **Rapunzel** - gains mult every time you play the same hand you played last hand (even between rounds).  Resets to 0 if you play a different hand.
 - **Thumbelina** - starts at x2 mult.  Gains x1 mult each time your played hand is only a King and a 2.  Changes that 2 into a Queen.
 - **Tinker Bell** - Each hand, chooses a suit.  Cards of that suit are drawn face down, and the first scored card of that suit will give xMult.  Increases xMult given if you play a hand of five of the target suit.  Decreases xMult if entirely ignored for a full round.
+- **Collector's Dollhouse** - any of the above jokers that form an unbroken chain with this joker, do not take up any joker slots.
 
 # for mod devs
 Lily Enstomach can buff jokers.  However, each joker is buffed differently based on what it does.  You can tell my mod how she should buff your mod's jokers, by including something like this within your joker's SMODS.Joker definition:
