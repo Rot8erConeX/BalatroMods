@@ -275,6 +275,7 @@ function SMODS.INIT.NineNineNine()
 				  end
 				elseif card.ability.extra.flow == "586" then
 				  card.ability.extra.safending = true
+			      generate = {'j_q9_sinister', "Safe"}
 				elseif string.sub(card.ability.extra.flow,3,3) == "1" then
 			      generate = {'j_trading', "Axe"}
 				elseif string.sub(card.ability.extra.flow,3,3) == "6" then
@@ -372,6 +373,127 @@ function SMODS.INIT.NineNineNine()
 		    card.joker_display_values.doors = card.ability.extra.flow
 		  end
         end
+	  }
+	end,
+	enstomach_compat = {
+      type = "incompatible"
+    }
+  }
+  
+  SMODS.Joker { -- The Sinister Hand
+    key = 'q9_sinister',
+	loc_txt = {
+	  name = "The Sinister Hand",
+	  text = {
+	    "{C:attention}Truth{} had {C:attention}gone{}, {C:attention}truth{} had {C:attention}gone{},",
+	    "and {C:attention}truth{} had {C:attention}gone{},",
+		"Ah, now truth is asleep in the",
+		"darkness of the sinister hand.",
+		" ",
+		"Gains {X:mult,C:white}X#1#{} of mult each time the riddle is solved.",
+		"{C:inactive}(currently {X:mult,C:white}X#2#{C:inactive} mult){}"
+	  },
+	  unlock = {
+	    "Achieve the {C:attention}Safe Ending{}."
+	  }
+	},
+	config = {
+	  extra = {
+	    Xmult = 1,
+		per = 0.25,
+		pos = 1
+	  }
+	},
+	loc_vars = function(self, info_queue, card)
+	  return {
+		vars = {
+		  card.ability.extra.per,
+		  card.ability.extra.Xmult
+		}
+	  }
+	end,
+	unlocked = false,
+    rarity = 3,
+    pos = { x = 2, y = 0},
+	atlas = "q9",
+    cost = 8,
+    blueprint_compat = true,
+	check_for_unlock = function(args)
+      if not G.jokers or not G.jokers.cards then
+	    return false
+	  end
+	  f = false
+	  for i,v in ipairs(G.jokers.cards) do
+	    if v.config.center.key=='j_q9_seek' and v.ability.extra.safending then
+		  f = true
+		end
+	  end
+	  return f
+	end,
+    calculate = function(self, card, context)
+	  -- make sure that which of Play/Discard is on the right and which is on the left is correctly stored
+	  local sequence = "DPDPDP"
+	  local tobuff = false
+	  if G.SETTINGS.play_button_pos == 1 then
+	    sequence = "PDPDPD"
+	  end
+	  
+	  if context.setting_blind then
+	    card.ability.extra.pos = 1
+	  end
+	  
+	  if context.before and context.cardarea == G.jokers and not context.blueprint then
+	    if card.ability.extra.pos > #sequence then
+	    elseif string.sub(sequence,card.ability.extra.pos,card.ability.extra.pos) == "P" then
+		  card.ability.extra.pos = card.ability.extra.pos + 1
+		  if card.ability.extra.pos == 7 then
+		    tobuff = true
+		  end
+		else
+		  card.ability.extra.pos = 1
+		end
+		print(card.ability.extra.pos)
+	  end
+	  
+	  if context.pre_discard and context.cardarea == G.jokers and not context.blueprint then
+	    if card.ability.extra.pos > #sequence then
+	    elseif string.sub(sequence,card.ability.extra.pos,card.ability.extra.pos) == "D" then
+		  card.ability.extra.pos = card.ability.extra.pos + 1
+		  if card.ability.extra.pos == 7 then
+		    tobuff = true
+		  end
+		else
+		  card.ability.extra.pos = 1
+		end
+		print(card.ability.extra.pos)
+	  end
+	  
+	  if tobuff and not context.blueprint then
+	    card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.per
+        return {
+          message = localize{type='variable',key='a_xmult',vars={card.ability.extra.Xmult}},
+          colour = G.C.RED,
+          card = card
+        }
+	  end
+      
+      if context.cardarea == G.jokers and card.ability.extra.Xmult > to_big(1) and context.joker_main then
+        return {
+          message = localize{type='variable',key='a_xmult',vars={card.ability.extra.Xmult}},
+          Xmult_mod = card.ability.extra.Xmult
+        }
+      end
+	end,
+    joker_display_def = function(JokerDisplay)
+	  return {
+        text = {
+          {
+            border_nodes = {
+              { text = "X" },
+              { ref_table = "card.ability.extra", ref_value = "Xmult" }
+            }
+          }
+        }
 	  }
 	end,
 	enstomach_compat = {
