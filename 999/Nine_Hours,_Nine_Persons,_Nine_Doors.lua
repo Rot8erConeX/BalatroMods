@@ -221,7 +221,7 @@ function SMODS.INIT.NineNineNine()
     pos = { x = 1, y = 0},
 	atlas = "q9",
     cost = 8,
-    blueprint_compat = false,
+    blueprint_compat = true,
     calculate = function(self, card, context)
 	  if context.joker_main and context.cardarea == G.jokers then
 	    if card.ability.extra.flow == "X999" then
@@ -229,6 +229,9 @@ function SMODS.INIT.NineNineNine()
             message = localize{type='variable',key='a_xmult',vars={999}},
             Xmult_mod = 999
           }
+		end
+		if context.blueprint then
+		  return
 		end
 	    local numbered = 0
 		local total = 0
@@ -452,7 +455,6 @@ function SMODS.INIT.NineNineNine()
 		else
 		  card.ability.extra.pos = 1
 		end
-		print(card.ability.extra.pos)
 	  end
 	  
 	  if context.pre_discard and context.cardarea == G.jokers and not context.blueprint then
@@ -465,7 +467,6 @@ function SMODS.INIT.NineNineNine()
 		else
 		  card.ability.extra.pos = 1
 		end
-		print(card.ability.extra.pos)
 	  end
 	  
 	  if tobuff and not context.blueprint then
@@ -500,4 +501,15 @@ function SMODS.INIT.NineNineNine()
       type = "incompatible"
     }
   }
+end
+
+if JokerDisplay then
+  local jokerdisp_copy_display = JokerDisplay.copy_display
+  JokerDisplay.copy_display = function(card, copied_joker, is_debuffed, bypass_debuff, stop_func_copy)
+    if copied_joker and copied_joker.label == "j_q9_seek" and copied_joker.joker_display_values and #copied_joker.joker_display_values.xmult == 0 then
+      jokerdisp_copy_display(card, nil, is_debuffed, bypass_debuff, true)
+	else
+      jokerdisp_copy_display(card, copied_joker, is_debuffed, bypass_debuff, stop_func_copy)
+	end
+  end
 end
