@@ -72,20 +72,16 @@ G.FUNCS.get_poker_hand_info = function(_cards)
     local poker_hands = evaluate_poker_hand(_cards)
     local scoring_hand = {}
     local text,disp_text,loc_disp_text = 'NULL','NULL', 'NULL'
-    if next(poker_hands["Flush Five"]) then text = "Flush Five"; scoring_hand = poker_hands["Flush Five"][1]
-    elseif next(poker_hands["Flush House"]) then text = "Flush House"; scoring_hand = poker_hands["Flush House"][1]
-    elseif next(poker_hands["Five of a Kind"]) then text = "Five of a Kind"; scoring_hand = poker_hands["Five of a Kind"][1]
-    elseif next(poker_hands["Straight Flush"]) then text = "Straight Flush"; scoring_hand = poker_hands["Straight Flush"][1]
-    elseif next(poker_hands["Four of a Kind"]) then text = "Four of a Kind"; scoring_hand = poker_hands["Four of a Kind"][1]
-    elseif next(poker_hands["Full House"]) then text = "Full House"; scoring_hand = poker_hands["Full House"][1]
-    elseif next(poker_hands["Flush"]) then text = "Flush"; scoring_hand = poker_hands["Flush"][1]
-    elseif next(poker_hands["Straight"]) then text = "Straight"; scoring_hand = poker_hands["Straight"][1]
-    elseif next(poker_hands["Three of a Kind"]) then text = "Three of a Kind"; scoring_hand = poker_hands["Three of a Kind"][1]
-    elseif next(poker_hands["Two Pair"]) then text = "Two Pair"; scoring_hand = poker_hands["Two Pair"][1]
-    elseif next(poker_hands["Pair"]) then text = "Pair"; scoring_hand = poker_hands["Pair"][1]
-    elseif next(poker_hands["High Card"]) then text = "High Card"; scoring_hand = poker_hands["High Card"][1] end
+	for _, v in ipairs(G.handlist) do
+		if next(poker_hands[v]) then
+			text = v
+			scoring_hand = poker_hands[v][1]
+			break
+		end
+	end
+	disp_text = text
+	local _hand = SMODS.PokerHands[text]
 
-    disp_text = text
     if text =='Straight Flush' then
         local min = 10
         for j = 1, #scoring_hand do
@@ -111,6 +107,8 @@ G.FUNCS.get_poker_hand_info = function(_cards)
 		elseif next(find_joker('Phase 10 Rules Card')) then
 			disp_text = 'Settled Flush'
 		end
+	elseif _hand and _hand.modify_display_text and type(_hand.modify_display_text) == 'function' then
+		disp_text = _hand:modify_display_text(_cards, scoring_hand) or disp_text
     end
     loc_disp_text = localize(disp_text, 'poker_hands')
     return text, loc_disp_text, poker_hands, scoring_hand, disp_text
