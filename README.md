@@ -4,7 +4,18 @@ based on the Zero Escape game *Nine Hours, Nine Persons, Nine Doors*
 This mod is a deck skin for Clubs where each numbered card is replaced with the character whose bracelet number matches that number (with the character whose bracelet is 1 appearing on the 10 card).  Clubs were chosen due to the blue used by the high-contrast mode, being very similar to the LEDs on the bracelets.
 There are also three jokers based on the game's events.  How two of the jokers interact with the game is affected by your deck skin - but why this is the case, is spoilers.
 
+# Habetrot
+Joker idea by my brother, DoomMustard
+
+This joker scans your played hand for all possible poker hands.  All of the ones that are included in the hand, have their base score added to the base score for the actual hand detected.
+
+This procs before The Flint, meaning the boss blind will cut your entire base score in half.  If you have both this and Space Joker, Space Joker only upgrades the highest-level hand detected.  (I might change this).
+
+Based on a member of the Fairy Court in FGO, because Shakespere's Puck doesn't have a defined appearance.
+
 # Phase10
+Also suggested by DoomMustard
+
 Probably the mod with the most potential for bugs.  Introduces a joker that allows Phase 10's "Runs" concept (a series of sequential numbers), to be valid scoring hands and for those to be scored the same as a "set" of the same size - for example, playing 10-9-8 will score the same as a Three of a Kind.  (yes this does mean that a Straight suddenly scores as a Five of a Kind).
 
 When you have this joker, Pairs and -of-a-Kind hands will display as "Run of #" and "Set of #" to show how you met the criteria.
