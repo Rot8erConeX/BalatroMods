@@ -235,6 +235,14 @@ function dispTable(val)
   return s
 end
 
+local function AliceFear()
+  if G.SETTINGS.CUSTOM_DECK.Collabs.Hearts == "CelesteSkin_Celeste" then
+    return "J_H"
+  else
+    return "Q_H"
+  end
+end
+
 function SMODS.INIT.Pockettes()
   local mod_id = "Pockettes"
   local mod_obj = SMODS.findModByID(mod_id)
@@ -405,7 +413,7 @@ function SMODS.INIT.Pockettes()
       name = "Alice",
       text = {
         "Loses {X:mult,C:white}X#1#{} of mult for each scoring {C:hearts}Heart{} or {C:attention}Queen{}.",
-        "Loses {X:mult,C:white}X#2#{} of mult for each played {C:hearts}Queen of Hearts{}",
+        "Loses {X:mult,C:white}X#2#{} of mult for each played {C:hearts}#5#{}",
         "Resets and gains {X:mult,C:white}X#3#{} for each Drink Joker consumed.",
         "{C:inactive}(Currently {X:mult,C:white}X#4#{C:inactive} mult)"
       }
@@ -416,7 +424,8 @@ function SMODS.INIT.Pockettes()
         XmultB = to_big(0.5),
         XmultC = to_big(1),
         total = to_big(3),
-        totalB = to_big(3)
+        totalB = to_big(3),
+		fear = "Queen of Hearts"
       }
     },
     loc_vars = function(self, info_queue, card)
@@ -430,7 +439,8 @@ function SMODS.INIT.Pockettes()
           card.ability.extra.Xmult,
           card.ability.extra.XmultB,
           card.ability.extra.XmultC,
-          card.ability.extra.total
+          card.ability.extra.total,
+          card.ability.extra.fear
         }
       }
     end,
@@ -441,19 +451,30 @@ function SMODS.INIT.Pockettes()
     display_size = { w = 71 * 0.7, h = 95 * 0.7 },
     cost = 8,
     blueprint_compat = true,
+	update = function(self, card, dt)
+	  if AliceFear() == "J_H" then
+	    card.ability.extra.fear = "Badeline"
+	  else
+	    card.ability.extra.fear = "Queen of Hearts"
+	  end
+	end,
     calculate = function(self, card, context)
       if context.before and not context.blueprint then
         local reduced = false
+		local spook = 12
+		if AliceFear() == "J_H" then
+		  spook = 11
+		end
         for i = 1, #context.scoring_hand do
           if context.scoring_hand[i]:is_suit('Hearts') or context.scoring_hand[i]:get_id() == 12 then
-            if not(context.scoring_hand[i]:is_suit('Hearts') and context.scoring_hand[i]:get_id() == 12) and not context.scoring_hand[i].debuff then
+            if not(context.scoring_hand[i]:is_suit('Hearts') and context.scoring_hand[i]:get_id() == spook) and not context.scoring_hand[i].debuff then
               reduced = true
               card.ability.extra.total = to_big(card.ability.extra.total) - to_big(card.ability.extra.Xmult)
             end
           end
         end
         for i = 1, #context.full_hand do
-          if context.full_hand[i]:is_suit('Hearts') and (context.full_hand[i]:get_id() == 12) and not context.scoring_hand[i].debuff then
+          if context.full_hand[i]:is_suit('Hearts') and (context.full_hand[i]:get_id() == spook) and not context.full_hand[i].debuff then
             reduced = true
             card.ability.extra.total = to_big(card.ability.extra.total) - to_big(card.ability.extra.XmultB)
           end
